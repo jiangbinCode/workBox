@@ -1,0 +1,27 @@
+10:59:57.335 [INFO ] [Thread-7] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-DirectoryTreeTool-0.0.1.jar
+11:03:45.624 [INFO ] [Thread-10] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-FileCopy-0.0.2.jar
+11:03:53.137 [INFO ] [Thread-12] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-FileRenameTool-0.0.2.jar
+11:04:01.193 [INFO ] [Thread-14] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-ImageTool-0.0.3.jar
+11:04:23.424 [INFO ] [JavaFX Application Thread] org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:04:23.429 [INFO ] [JavaFX Application Thread] org.quartz.simpl.SimpleThreadPool - Job execution threads will use class loader of thread: JavaFX Application Thread
+11:04:23.452 [INFO ] [JavaFX Application Thread] org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:04:23.452 [INFO ] [JavaFX Application Thread] org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.1 created.
+11:04:23.453 [INFO ] [JavaFX Application Thread] org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:04:23.455 [INFO ] [JavaFX Application Thread] org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:04:23.455 [INFO ] [JavaFX Application Thread] org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+11:04:23.455 [INFO ] [JavaFX Application Thread] org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.1
+11:21:55.228 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-DirectoryTreeTool-0.0.1.jar
+11:21:55.232 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-FileCopy-0.0.2.jar
+11:21:55.232 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-FileRenameTool-0.0.2.jar
+11:21:55.232 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-ImageTool-0.0.3.jar
+11:32:45.693 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-DirectoryTreeTool-0.0.1.jar
+11:32:45.697 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-FileCopy-0.0.2.jar
+11:32:45.697 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-FileRenameTool-0.0.2.jar
+11:32:45.697 [INFO ] [main] com.xwintop.xJavaFxTool.utils.XJavaFxSystemUtil - Reading lib file: x-ImageTool-0.0.3.jar
