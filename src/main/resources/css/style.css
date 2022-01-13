@@ -1,3 +1,7 @@
 #fileTableTableView .table-column {
+     -fx-alignment: CENTER;
+ }
+
+#masterImgTable .table-column {
     -fx-alignment: CENTER;
 }

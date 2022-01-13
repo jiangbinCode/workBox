@@ -1,8 +1,8 @@
 package sample.util;
 
 import javafx.scene.control.TreeItem;
-import sample.model.TableViewUrgeFileTable;
-import sample.model.TreeViewUrgeFileTree;
+import sample.model.file_make.TableViewUrgeFileTable;
+import sample.model.file_make.TreeViewUrgeFileTree;
 
 import java.io.File;
 import java.util.List;

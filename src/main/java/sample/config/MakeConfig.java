@@ -1,11 +1,11 @@
 package sample.config;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
-import sample.model.TableViewUrgeFileTable;
-import sample.model.TreeViewUrgeFileTree;
+import sample.model.file_make.PictureModel;
+import sample.model.file_make.TableViewUrgeFileTable;
+import sample.model.file_make.TreeViewUrgeFileTree;
 
 /**
  * @program: workBox
@@ -17,4 +17,5 @@ public class MakeConfig {
     public static TreeView<TreeViewUrgeFileTree> fileTree;
     public static TableView<TableViewUrgeFileTable> fileTableTableView;
     public static ImageView previewImg;
+    public static TableView<PictureModel> masterImgTable;
 }

@@ -1,9 +1,12 @@
 package sample.service.file_make;
 
 import cn.hutool.core.collection.CollectionUtil;
+import javafx.concurrent.Task;
 import javafx.scene.control.*;
-import sample.model.TreeViewUrgeFileTree;
+import sample.Main;
+import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.util.FileUtil;
+import sample.util.ProgressStage;
 import sample.util.Util;
 import sample.work.WorkCache;
 
@@ -46,8 +49,7 @@ public class FileTreeViewInitService {
                 if (CollectionUtil.isEmpty(selectItem.getChildren())) {
                     Util.msg("信息", "该文件夹下暂无图片信息!");
                 } else {
-                    WorkCache.loadWordData(selectItem.getValue().getPath(), selectItem.getValue().getValue());
-                    FileTableViewInitService.loadData(new File((selectItem.getValue()).getPath()));
+                    ProgressStage.of(Main.getPrimaryStage(), new FileImgLoad(selectItem), "加载中,请稍后...").show();
                 }
             });
             addMenu.getItems().add(loadFiles);
@@ -70,6 +72,22 @@ public class FileTreeViewInitService {
             setGraphic(getTreeItem().getGraphic());
         }
 
+    }
+
+    public static class FileImgLoad extends Task {
+
+        private TreeItem<TreeViewUrgeFileTree> selectItem;
+
+        FileImgLoad(TreeItem<TreeViewUrgeFileTree> selectItem) {
+            this.selectItem = selectItem;
+        }
+
+        @Override
+        protected Object call() throws Exception {
+            WorkCache.loadWordData(selectItem.getValue().getPath(), selectItem.getValue().getValue());
+            FileTableViewInitService.loadData(new File((selectItem.getValue()).getPath()));
+            return null;
+        }
     }
 
 }

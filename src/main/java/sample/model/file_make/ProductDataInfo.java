@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.file_make;
 
 import java.util.ArrayList;
 import java.util.List;

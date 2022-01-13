@@ -1,19 +1,17 @@
 package sample.service.file_make;
 
 
+import cn.hutool.core.collection.CollectionUtil;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventTarget;
-import javafx.event.EventType;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import sample.config.MakeConfig;
-import sample.controller.MakeController;
 import sample.enums.PictureType;
-import sample.model.TableViewUrgeFileTable;
+import sample.model.file_make.TableViewUrgeFileTable;
 import sample.util.FileUtil;
+import sample.util.Util;
 import sample.work.WorkCache;
 
 import java.io.File;
@@ -52,6 +50,13 @@ public class FileTableViewInitService {
             if (item.getCheckBox().isSelected()) selectData.add(item);
         }
         return selectData;
+    }
+
+    public static void clearSelectData() {
+        List<TableViewUrgeFileTable> selectData = getSelectData();
+        for (TableViewUrgeFileTable item : selectData) {
+            item.getCheckBox().change(false);
+        }
     }
 
     public static void checkAll(Boolean check) {
@@ -111,12 +116,25 @@ public class FileTableViewInitService {
         selectedItem.addPicType(pictureType);
         WorkCache.addImg(selectedItem, pictureType);
         fileTableTableView.refresh();
+        MasterImgTableInitService.loadData();
     }
 
     public static void imgRemoveWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
         selectedItem.removePicType(pictureType);
         WorkCache.removeImg(selectedItem, pictureType);
         fileTableTableView.refresh();
+        MasterImgTableInitService.loadData();
+    }
+
+
+    public static void imgMoreJoinWorkCache(PictureType pictureType) {
+        List<TableViewUrgeFileTable> selectData = getSelectData();
+        if (CollectionUtil.isEmpty(selectData)) {
+            Util.msg("信息", "请至少在表格中选择一个!");
+            return;
+        }
+        selectData.forEach(x -> imgJoinWorkCache(x, pictureType));
+        clearSelectData();
     }
 
 }

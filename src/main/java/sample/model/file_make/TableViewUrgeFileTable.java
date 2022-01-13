@@ -1,8 +1,6 @@
-package sample.model;
+package sample.model.file_make;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.extra.tokenizer.Word;
 import sample.enums.PictureType;
 import sample.work.WorkCache;
 

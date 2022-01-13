@@ -6,19 +6,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import sample.Main;
 import sample.config.MakeConfig;
 import sample.enums.PictureType;
-import sample.model.TableViewUrgeFileTable;
-import sample.model.TreeViewUrgeFileTree;
+import sample.model.file_make.PictureModel;
+import sample.model.file_make.TableViewUrgeFileTable;
+import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.service.file_make.FileTableViewInitService;
 import sample.service.file_make.FileTreeViewInitService;
 
 import java.io.File;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class MakeController {
 
@@ -45,9 +45,13 @@ public class MakeController {
     @FXML
     private ImageView previewImg;
     @FXML
-    private Button tagMasterImg;
-    @FXML
     private CheckBox fileCheckAll;
+    @FXML
+    private TableView<PictureModel> masterImgTable;
+    @FXML
+    private TableColumn<PictureModel, String> m_name;
+    @FXML
+    private TableColumn<PictureModel, String> m_num;
 
 
     @FXML
@@ -63,8 +67,24 @@ public class MakeController {
 
     @FXML
     void tagMasterImg(ActionEvent event) {
-        FileTableViewInitService.getSelectData();
+        FileTableViewInitService.imgMoreJoinWorkCache(PictureType.主图);
     }
+
+    @FXML
+    void tagSkuImg(ActionEvent event) {
+        FileTableViewInitService.imgMoreJoinWorkCache(PictureType.选项图);
+    }
+
+    @FXML
+    void tagDetailsImg(ActionEvent event) {
+        FileTableViewInitService.imgMoreJoinWorkCache(PictureType.详情图);
+    }
+
+    @FXML
+    void tagWhiteImg(ActionEvent event) {
+        FileTableViewInitService.imgMoreJoinWorkCache(PictureType.透明图);
+    }
+
 
     @FXML
     void fileCheckAll(ActionEvent event) {
@@ -72,6 +92,24 @@ public class MakeController {
     }
 
     private void bindColumn() {
+        fileTableTableBindColumn();
+        masterImgTableBindColumn();
+    }
+
+
+    private void masterImgTableBindColumn() {
+        m_name.setCellValueFactory(new PropertyValueFactory("name"));
+        m_num.setCellValueFactory(new PropertyValueFactory("num"));
+        m_num.setCellFactory(TextFieldTableCell.<PictureModel>forTableColumn());
+        m_num.setOnEditCommit(
+                (TableColumn.CellEditEvent<PictureModel, String> t) -> {
+                    System.out.println(t);
+                });
+
+    }
+
+
+    private void fileTableTableBindColumn() {
         path.setCellValueFactory(new PropertyValueFactory(path.getId()));
         name.setCellValueFactory(new PropertyValueFactory(name.getId()));
         fileSize.setCellValueFactory(new PropertyValueFactory(fileSize.getId()));
@@ -84,7 +122,6 @@ public class MakeController {
                 return CollectionUtil.join(cellData.getValue().getUseWay(), ",");
             }
         });
-        fileTableTableView.setStyle("-fx-alignment: CENTER-RIGHT");
     }
 
 
@@ -92,6 +129,7 @@ public class MakeController {
         MakeConfig.fileTableTableView = this.fileTableTableView;
         MakeConfig.fileTree = this.fileTree;
         MakeConfig.previewImg = this.previewImg;
+        MakeConfig.masterImgTable = this.masterImgTable;
     }
 
 }

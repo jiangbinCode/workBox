@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.file_make;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
