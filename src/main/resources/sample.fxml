@@ -51,12 +51,12 @@
                   <Separator prefWidth="200.0" />
                   <HBox prefHeight="33.0" prefWidth="1050.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="53.0" text="全选">
+                        <CheckBox fx:id="fileCheckAll" mnemonicParsing="false" onAction="#fileCheckAll" prefHeight="30.0" prefWidth="53.0" text="全选">
                            <HBox.margin>
                               <Insets left="3.0" />
                            </HBox.margin>
                         </CheckBox>
-                        <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="95.0" text="标识为主图">
+                        <Button fx:id="tagMasterImg" mnemonicParsing="false" onAction="#tagMasterImg" prefHeight="23.0" prefWidth="95.0" text="标识为主图">
                            <HBox.margin>
                               <Insets left="5.0" top="2.0" />
                            </HBox.margin>
@@ -82,10 +82,11 @@
                     <columns>
                         <TableColumn fx:id="fCheckBox" prefWidth="75.0" text="选择" />
                       <TableColumn fx:id="path" minWidth="100.0" prefWidth="302.0" text="文件路径" />
-                      <TableColumn fx:id="name" prefWidth="122.0" text="文件名" />
-                        <TableColumn fx:id="fileSize" prefWidth="102.0" text="文件大小" />
-                        <TableColumn fx:id="fileType" minWidth="4.0" prefWidth="86.0" text="文件类型" />
-                        <TableColumn fx:id="s" prefWidth="234.0" text="作用于" />
+                      <TableColumn fx:id="name" prefWidth="192.0" text="文件名" />
+                        <TableColumn fx:id="fileSize" prefWidth="101.0" text="文件大小" />
+                        <TableColumn fx:id="pixel" prefWidth="120.0" text="尺寸(PX)" />
+                        <TableColumn fx:id="fileType" minWidth="4.0" prefWidth="88.0" text="文件类型" />
+                        <TableColumn fx:id="useWay" prefWidth="181.0" text="作用于" />
                     </columns>
                      <VBox.margin>
                         <Insets />

@@ -1,7 +1,7 @@
 package sample.controller;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
+import cn.hutool.core.collection.CollectionUtil;
+import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,11 +10,15 @@ import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import sample.Main;
 import sample.config.MakeConfig;
+import sample.enums.PictureType;
 import sample.model.TableViewUrgeFileTable;
 import sample.model.TreeViewUrgeFileTree;
+import sample.service.file_make.FileTableViewInitService;
 import sample.service.file_make.FileTreeViewInitService;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MakeController {
 
@@ -35,7 +39,16 @@ public class MakeController {
     @FXML
     private TableColumn<TableViewUrgeFileTable, CheckBox> fCheckBox;
     @FXML
+    private TableColumn<TableViewUrgeFileTable, String> useWay;
+    @FXML
+    private TableColumn<TableViewUrgeFileTable, String> pixel;
+    @FXML
     private ImageView previewImg;
+    @FXML
+    private Button tagMasterImg;
+    @FXML
+    private CheckBox fileCheckAll;
+
 
     @FXML
     void selectFile(ActionEvent event) {
@@ -48,13 +61,29 @@ public class MakeController {
         initConfig();
     }
 
+    @FXML
+    void tagMasterImg(ActionEvent event) {
+        FileTableViewInitService.getSelectData();
+    }
+
+    @FXML
+    void fileCheckAll(ActionEvent event) {
+        FileTableViewInitService.checkAll(fileCheckAll.isSelected());
+    }
 
     private void bindColumn() {
         path.setCellValueFactory(new PropertyValueFactory(path.getId()));
         name.setCellValueFactory(new PropertyValueFactory(name.getId()));
         fileSize.setCellValueFactory(new PropertyValueFactory(fileSize.getId()));
         fileType.setCellValueFactory(new PropertyValueFactory(fileType.getId()));
+        pixel.setCellValueFactory(new PropertyValueFactory(pixel.getId()));
         fCheckBox.setCellValueFactory(cellData -> cellData.getValue().getCheckBox().getCheckBox());
+        useWay.setCellValueFactory(cellData -> new ObjectBinding<String>() {
+            @Override
+            protected String computeValue() {
+                return CollectionUtil.join(cellData.getValue().getUseWay(), ",");
+            }
+        });
         fileTableTableView.setStyle("-fx-alignment: CENTER-RIGHT");
     }
 

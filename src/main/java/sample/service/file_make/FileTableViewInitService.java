@@ -1,18 +1,20 @@
 package sample.service.file_make;
 
 
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventTarget;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.event.EventType;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import sample.config.MakeConfig;
 import sample.controller.MakeController;
+import sample.enums.PictureType;
 import sample.model.TableViewUrgeFileTable;
 import sample.util.FileUtil;
+import sample.work.WorkCache;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,20 +28,95 @@ import java.util.List;
  * @create: 2022-01-12 11:05
  **/
 public class FileTableViewInitService {
-    private static TableView<TableViewUrgeFileTable> fileTableTableView = MakeConfig.fileTableTableView;
+    private static final TableView<TableViewUrgeFileTable> fileTableTableView = MakeConfig.fileTableTableView;
 
     public static void loadData(File rootFile) {
         fileTableTableView.getItems().setAll(Collections.emptyList());
         List<TableViewUrgeFileTable> fileTables = new ArrayList<>();
         FileUtil.findRootFileImgAll(rootFile, fileTables);
         fileTableTableView.getItems().addAll(fileTables);
-        fileTableTableView.setTableMenuButtonVisible(true);
         fileTableTableView.setOnMouseClicked((EventHandler<Event>) event -> {
-            TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
-            MakeConfig.previewImg.setImage(new Image(cn.hutool.core.io.FileUtil.getInputStream(new File(selectedItem.getPath()))));
+            String name = event.getEventType().getName();
+            if (name.equals("MOUSE_CLICKED")) {
+                TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
+                MakeConfig.previewImg.setImage(new Image(cn.hutool.core.io.FileUtil.getInputStream(new File(selectedItem.getPath()))));
+            }
         });
-
+        menuBind();
     }
 
+    public static List<TableViewUrgeFileTable> getSelectData() {
+        ObservableList<TableViewUrgeFileTable> items = fileTableTableView.getItems();
+        List<TableViewUrgeFileTable> selectData = new ArrayList<>();
+        for (TableViewUrgeFileTable item : items) {
+            if (item.getCheckBox().isSelected()) selectData.add(item);
+        }
+        return selectData;
+    }
+
+    public static void checkAll(Boolean check) {
+        fileTableTableView.getItems().forEach(item -> {
+            item.getCheckBox().change(check);
+        });
+    }
+
+    private static void menuBind() {
+        ContextMenu addMenu = new ContextMenu();
+        MenuItem m1 = new MenuItem("选择/取消选择");
+        MenuItem m2 = new MenuItem("标识/取消为主图");
+        MenuItem m3 = new MenuItem("标识/取消选项图");
+        MenuItem m4 = new MenuItem("标识/取消详情图");
+        MenuItem m5 = new MenuItem("标识/取消为透明图");
+        m1.setOnAction(p -> {
+            TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
+            selectedItem.getCheckBox().change(!Boolean.TRUE.equals(selectedItem.getCheckBox().isSelected()));
+        });
+        m2.setOnAction(p -> {
+            TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
+            if (WorkCache.containImg(selectedItem, PictureType.主图)) {
+                imgRemoveWorkCache(selectedItem, PictureType.主图);
+            } else {
+                imgJoinWorkCache(selectedItem, PictureType.主图);
+            }
+        });
+        m3.setOnAction(p -> {
+            TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
+            if (WorkCache.containImg(selectedItem, PictureType.选项图)) {
+                imgRemoveWorkCache(selectedItem, PictureType.选项图);
+            } else {
+                imgJoinWorkCache(selectedItem, PictureType.选项图);
+            }
+        });
+        m4.setOnAction(p -> {
+            TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
+            if (WorkCache.containImg(selectedItem, PictureType.详情图)) {
+                imgRemoveWorkCache(selectedItem, PictureType.详情图);
+            } else {
+                imgJoinWorkCache(selectedItem, PictureType.详情图);
+            }
+        });
+        m5.setOnAction(p -> {
+            TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
+            if (WorkCache.containImg(selectedItem, PictureType.透明图)) {
+                imgRemoveWorkCache(selectedItem, PictureType.透明图);
+            } else {
+                imgJoinWorkCache(selectedItem, PictureType.透明图);
+            }
+        });
+        addMenu.getItems().addAll(m1, m2, m3, m4, m5);
+        fileTableTableView.setContextMenu(addMenu);
+    }
+
+    public static void imgJoinWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
+        selectedItem.addPicType(pictureType);
+        WorkCache.addImg(selectedItem, pictureType);
+        fileTableTableView.refresh();
+    }
+
+    public static void imgRemoveWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
+        selectedItem.removePicType(pictureType);
+        WorkCache.removeImg(selectedItem, pictureType);
+        fileTableTableView.refresh();
+    }
 
 }

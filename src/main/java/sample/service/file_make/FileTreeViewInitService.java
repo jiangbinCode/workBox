@@ -1,11 +1,11 @@
 package sample.service.file_make;
 
 import cn.hutool.core.collection.CollectionUtil;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import sample.model.TreeViewUrgeFileTree;
 import sample.util.FileUtil;
 import sample.util.Util;
+import sample.work.WorkCache;
 
 import java.io.File;
 
@@ -42,11 +42,12 @@ public class FileTreeViewInitService {
         TextFieldTreeCellImpl() {
             MenuItem loadFiles = new MenuItem("加载所有图片");
             loadFiles.setOnAction(e -> {
-                TreeItem selectItem = treeView.getSelectionModel().getSelectedItem();
+                TreeItem<TreeViewUrgeFileTree> selectItem = treeView.getSelectionModel().getSelectedItem();
                 if (CollectionUtil.isEmpty(selectItem.getChildren())) {
                     Util.msg("信息", "该文件夹下暂无图片信息!");
                 } else {
-                    FileTableViewInitService.loadData(new File(((TreeViewUrgeFileTree) selectItem.getValue()).getPath()));
+                    WorkCache.loadWordData(selectItem.getValue().getPath(), selectItem.getValue().getValue());
+                    FileTableViewInitService.loadData(new File((selectItem.getValue()).getPath()));
                 }
             });
             addMenu.getItems().add(loadFiles);
