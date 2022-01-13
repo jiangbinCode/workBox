@@ -18,4 +18,6 @@ public class MakeConfig {
     public static TableView<TableViewUrgeFileTable> fileTableTableView;
     public static ImageView previewImg;
     public static TableView<PictureModel> masterImgTable;
+    public static TableView<PictureModel> skuImgTable;
+    public static TableView<PictureModel> detailImgTable;
 }

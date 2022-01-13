@@ -1,5 +1,8 @@
 package sample.model.file_make;
 
+import cn.hutool.core.collection.CollectionUtil;
+import sample.enums.PictureType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,115 @@ public class ProductDataInfo {
         this.productName = productName;
 
     }
+
+
+    public ProductDataInfo addImg(TableViewUrgeFileTable vTable, PictureType pictureType) {
+        PictureModel pictureModel = PictureModel.instantiation(vTable);
+        List<PictureModel> pics = new ArrayList<>();
+        switch (pictureType) {
+            case 主图:
+                pics = this.getMasterImgItems();
+                if (!pics.contains(pictureModel)) pics.add(pictureModel);
+                break;
+            case 详情图:
+                pics = this.getDetailsImgItems();
+                if (!pics.contains(pictureModel)) pics.add(pictureModel);
+                break;
+            case 选项图:
+                pics = this.getSkuImgItems();
+                if (!pics.contains(pictureModel)) pics.add(pictureModel);
+                break;
+            case 透明图:
+                pics = this.getWhiteImgItems();
+                if (!pics.contains(pictureModel)) pics.add(pictureModel);
+                break;
+        }
+        autoAdjustNum(pics);
+        return this;
+    }
+
+    public ProductDataInfo removeImg(TableViewUrgeFileTable vTable, PictureType pictureType) {
+        PictureModel pictureModel = PictureModel.instantiation(vTable);
+        List<PictureModel> pics = new ArrayList<>();
+        switch (pictureType) {
+            case 主图:
+                pics = this.getMasterImgItems();
+                if (pics.contains(pictureModel)) pics.remove(pictureModel);
+                break;
+            case 详情图:
+                pics = this.getDetailsImgItems();
+                if (pics.contains(pictureModel)) pics.remove(pictureModel);
+                break;
+            case 选项图:
+                pics = this.getSkuImgItems();
+                if (pics.contains(pictureModel)) pics.remove(pictureModel);
+                break;
+            case 透明图:
+                pics = this.getWhiteImgItems();
+                if (pics.contains(pictureModel)) pics.remove(pictureModel);
+                break;
+        }
+        autoAdjustNum(pics);
+        return this;
+    }
+
+    public boolean containImg(TableViewUrgeFileTable vTable, PictureType pictureType) {
+        PictureModel pictureModel = PictureModel.instantiation(vTable);
+        switch (pictureType) {
+            case 主图:
+                List<PictureModel> imgItems = this.getMasterImgItems();
+                return imgItems.contains(pictureModel);
+            case 详情图:
+                List<PictureModel> detailsImgItems = this.getDetailsImgItems();
+                return detailsImgItems.contains(pictureModel);
+            case 选项图:
+                List<PictureModel> skuImgItems = this.getSkuImgItems();
+                return skuImgItems.contains(pictureModel);
+            case 透明图:
+                List<PictureModel> whiteImgItems = this.getWhiteImgItems();
+                return whiteImgItems.contains(pictureModel);
+        }
+        return false;
+    }
+
+    public boolean updateNun(PictureModel pModel, Integer tagNum, PictureType pictureType) {
+        List<PictureModel> pics = new ArrayList<>();
+        switch (pictureType) {
+            case 主图:
+                pics = this.getMasterImgItems();
+                break;
+            case 详情图:
+                pics = this.getDetailsImgItems();
+                break;
+            case 选项图:
+                pics = this.getSkuImgItems();
+                break;
+            case 透明图:
+                pics = this.getWhiteImgItems();
+                break;
+        }
+        tagNum = tagNum - 1;
+        PictureModel model = pics.get(tagNum);
+        pics.set(tagNum, pModel);
+        pics.set(pModel.getNum() - 1, model);
+        autoAdjustNum(pics);
+        return false;
+    }
+
+
+    public ProductDataInfo updateMorePhone() {
+        return this;
+    }
+
+
+    private void autoAdjustNum(List<PictureModel> pictureModels) {
+        if (CollectionUtil.isEmpty(pictureModels)) return;
+        for (PictureModel pictureModel : pictureModels) {
+            int i = pictureModels.indexOf(pictureModel);
+            pictureModel.setNum(i + 1);
+        }
+    }
+
 
     public String getEditPath() {
         return editPath;

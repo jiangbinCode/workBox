@@ -1,7 +1,15 @@
 #fileTableTableView .table-column {
-     -fx-alignment: CENTER;
- }
+    -fx-alignment: CENTER;
+}
 
 #masterImgTable .table-column {
+    -fx-alignment: CENTER;
+}
+
+#skuImgTable .table-column {
+    -fx-alignment: CENTER;
+}
+
+#detailImgTable .table-column {
     -fx-alignment: CENTER;
 }

@@ -77,14 +77,15 @@ public class TableViewUrgeFileTable {
     public static TableViewUrgeFileTable instantiation(File file) {
         TableViewUrgeFileTable fileTable = new TableViewUrgeFileTable();
         fileTable.setPath(file.getPath());
-        fileTable.setName(file.getName());
+        String[] split = file.getName().split("\\.");
+        fileTable.setName(split[0]);
         long l = file.length() / 1021;
         fileTable.setFileSize(l + " KB");
         fileTable.setFileType(FileUtil.getType(file));
-        if (WorkCache.containImg(fileTable, PictureType.主图)) fileTable.addPicType(PictureType.主图);
-        if (WorkCache.containImg(fileTable, PictureType.详情图)) fileTable.addPicType(PictureType.详情图);
-        if (WorkCache.containImg(fileTable, PictureType.选项图)) fileTable.addPicType(PictureType.选项图);
-        if (WorkCache.containImg(fileTable, PictureType.透明图)) fileTable.addPicType(PictureType.透明图);
+        if (WorkCache.getWorkData().containImg(fileTable, PictureType.主图)) fileTable.addPicType(PictureType.主图);
+        if (WorkCache.getWorkData().containImg(fileTable, PictureType.详情图)) fileTable.addPicType(PictureType.详情图);
+        if (WorkCache.getWorkData().containImg(fileTable, PictureType.选项图)) fileTable.addPicType(PictureType.选项图);
+        if (WorkCache.getWorkData().containImg(fileTable, PictureType.透明图)) fileTable.addPicType(PictureType.透明图);
         try {
             BufferedImage read = ImageIO.read(file);
             fileTable.setPixel(read.getWidth() + " x " + read.getHeight());

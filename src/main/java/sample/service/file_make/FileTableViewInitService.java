@@ -78,7 +78,7 @@ public class FileTableViewInitService {
         });
         m2.setOnAction(p -> {
             TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
-            if (WorkCache.containImg(selectedItem, PictureType.主图)) {
+            if (WorkCache.getWorkData().containImg(selectedItem, PictureType.主图)) {
                 imgRemoveWorkCache(selectedItem, PictureType.主图);
             } else {
                 imgJoinWorkCache(selectedItem, PictureType.主图);
@@ -86,7 +86,7 @@ public class FileTableViewInitService {
         });
         m3.setOnAction(p -> {
             TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
-            if (WorkCache.containImg(selectedItem, PictureType.选项图)) {
+            if (WorkCache.getWorkData().containImg(selectedItem, PictureType.选项图)) {
                 imgRemoveWorkCache(selectedItem, PictureType.选项图);
             } else {
                 imgJoinWorkCache(selectedItem, PictureType.选项图);
@@ -94,7 +94,7 @@ public class FileTableViewInitService {
         });
         m4.setOnAction(p -> {
             TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
-            if (WorkCache.containImg(selectedItem, PictureType.详情图)) {
+            if (WorkCache.getWorkData().containImg(selectedItem, PictureType.详情图)) {
                 imgRemoveWorkCache(selectedItem, PictureType.详情图);
             } else {
                 imgJoinWorkCache(selectedItem, PictureType.详情图);
@@ -102,7 +102,7 @@ public class FileTableViewInitService {
         });
         m5.setOnAction(p -> {
             TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
-            if (WorkCache.containImg(selectedItem, PictureType.透明图)) {
+            if (WorkCache.getWorkData().containImg(selectedItem, PictureType.透明图)) {
                 imgRemoveWorkCache(selectedItem, PictureType.透明图);
             } else {
                 imgJoinWorkCache(selectedItem, PictureType.透明图);
@@ -114,16 +114,16 @@ public class FileTableViewInitService {
 
     public static void imgJoinWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
         selectedItem.addPicType(pictureType);
-        WorkCache.addImg(selectedItem, pictureType);
+        WorkCache.getWorkData().addImg(selectedItem, pictureType);
         fileTableTableView.refresh();
-        MasterImgTableInitService.loadData();
+        SelectImgTableInitService.loadData();
     }
 
     public static void imgRemoveWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
         selectedItem.removePicType(pictureType);
-        WorkCache.removeImg(selectedItem, pictureType);
+        WorkCache.getWorkData().removeImg(selectedItem, pictureType);
         fileTableTableView.refresh();
-        MasterImgTableInitService.loadData();
+        SelectImgTableInitService.loadData();
     }
 
 
