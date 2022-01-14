@@ -1,5 +1,6 @@
 package sample.config;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
@@ -20,4 +21,6 @@ public class MakeConfig {
     public static TableView<PictureModel> masterImgTable;
     public static TableView<PictureModel> skuImgTable;
     public static TableView<PictureModel> detailImgTable;
+    public static Label selectNum;
+
 }

@@ -3,13 +3,23 @@ package sample.controller;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import javafx.beans.binding.ObjectBinding;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.converter.IntegerStringConverter;
 import sample.Main;
 import sample.config.MakeConfig;
@@ -19,10 +29,13 @@ import sample.model.file_make.TableViewUrgeFileTable;
 import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.service.file_make.FileTableViewInitService;
 import sample.service.file_make.FileTreeViewInitService;
+import sample.util.ProgressStage;
 import sample.util.Util;
 import sample.work.WorkCache;
+import sample.work.WorkTask;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MakeController {
 
@@ -69,6 +82,9 @@ public class MakeController {
     @FXML
     private TableColumn<PictureModel, Integer> d_num;
 
+    @FXML
+    private Label selectNum;
+
 
     @FXML
     void selectFile(ActionEvent event) {
@@ -78,7 +94,6 @@ public class MakeController {
         filePath.setText(newFolder.getPath());
         FileTreeViewInitService.initTree(newFolder, fileTree);
         bindColumn();
-        initConfig();
     }
 
     @FXML
@@ -104,7 +119,34 @@ public class MakeController {
 
     @FXML
     void fileCheckAll(ActionEvent event) {
+        if (!WorkCache.isWord()) {
+            Util.msg("提示", "请先初始化数据!");
+            return;
+        }
         FileTableViewInitService.checkAll(fileCheckAll.isSelected());
+    }
+
+
+    @FXML
+    void makeTaskStart(ActionEvent event) {
+        ProgressStage.of(Main.getPrimaryStage(), new WorkTask(), "请稍后...").show();
+    }
+
+
+    @FXML
+    void morePhoneMake(ActionEvent e) throws IOException {
+        if (!WorkCache.isWord()) {
+            Util.msg("提示", "请先初始化数据!");
+            return;
+        }
+        Stage secondWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/morePhoneSelect.fxml"));
+        Scene scene = new Scene(root, 600, 400);
+        secondWindow.setTitle("多型号选择");
+        secondWindow.getIcons().add(new Image(
+                Main.class.getResourceAsStream("/icon/zndz.jpg")));
+        secondWindow.setScene(scene);
+        secondWindow.show();
     }
 
     private void bindColumn() {
@@ -212,13 +254,14 @@ public class MakeController {
     }
 
 
-    private void initConfig() {
+    public void initialize() {
         MakeConfig.fileTableTableView = this.fileTableTableView;
         MakeConfig.fileTree = this.fileTree;
         MakeConfig.previewImg = this.previewImg;
         MakeConfig.masterImgTable = this.masterImgTable;
         MakeConfig.skuImgTable = this.skuImgTable;
         MakeConfig.detailImgTable = this.detailImgTable;
+        MakeConfig.selectNum = this.selectNum;
 
     }
 

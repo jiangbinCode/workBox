@@ -1,10 +1,12 @@
 package sample.util;
 
+import cn.hutool.core.collection.CollectionUtil;
 import javafx.scene.control.TreeItem;
 import sample.model.file_make.TableViewUrgeFileTable;
 import sample.model.file_make.TreeViewUrgeFileTree;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +17,16 @@ import java.util.List;
  **/
 @SuppressWarnings("ALL")
 public class FileUtil {
+
+
+    private static final List<String> IMG_FORMAT = new ArrayList<>();
+
+    static {
+        IMG_FORMAT.add("jpg");
+        IMG_FORMAT.add("jepg");
+        IMG_FORMAT.add("png");
+        IMG_FORMAT.add("gif ");
+    }
 
     public static TreeItem listFileDic(File file, TreeItem item) {
         File[] listFiles = file.listFiles();
@@ -37,7 +49,10 @@ public class FileUtil {
             if (file2.isDirectory()) {
                 findRootFileImgAll(file2, fileTables);
             } else {
-                fileTables.add(TableViewUrgeFileTable.instantiation(file2));
+                String extName = cn.hutool.core.io.FileUtil.extName(file2);
+                if (IMG_FORMAT.contains(extName.toLowerCase())) {
+                    fileTables.add(TableViewUrgeFileTable.instantiation(file2));
+                }
             }
         }
 

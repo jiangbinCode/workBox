@@ -16,6 +16,7 @@ import sample.work.WorkCache;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @program: workBox
@@ -41,44 +42,29 @@ public class SelectImgTableInitService {
 
 
     private static void skuImgTableLoadData() {
-        skuImgTable.getItems().setAll(Collections.emptyList());
-        ProductDataInfo workData = WorkCache.getWorkData();
-        skuImgTable.getItems().addAll(workData.getSkuImgItems());
-        skuImgTable.setOnMouseClicked((EventHandler<Event>) event -> {
-            String name = event.getEventType().getName();
-            if (name.equals("MOUSE_CLICKED")) {
-                PictureModel selectedItem = skuImgTable.getSelectionModel().getSelectedItem();
-                MakeConfig.previewImg.setImage(new Image(cn.hutool.core.io.FileUtil.getInputStream(new File(selectedItem.getPath()))));
-            }
-        });
+        trendLoadData(skuImgTable, WorkCache.getWorkData().getSkuImgItems());
 
     }
 
     private static void masterImgTableLoadData() {
-        masterImgTable.getItems().setAll(Collections.emptyList());
-        ProductDataInfo workData = WorkCache.getWorkData();
-        masterImgTable.getItems().addAll(workData.getMasterImgItems());
-        masterImgTable.setOnMouseClicked((EventHandler<Event>) event -> {
-            String name = event.getEventType().getName();
-            if (name.equals("MOUSE_CLICKED")) {
-                PictureModel selectedItem = masterImgTable.getSelectionModel().getSelectedItem();
-                MakeConfig.previewImg.setImage(new Image(cn.hutool.core.io.FileUtil.getInputStream(new File(selectedItem.getPath()))));
-            }
-        });
+        trendLoadData(masterImgTable, WorkCache.getWorkData().getMasterImgItems());
     }
 
     private static void detailImgTableLoadData() {
-        detailImgTable.getItems().setAll(Collections.emptyList());
-        ProductDataInfo workData = WorkCache.getWorkData();
-        detailImgTable.getItems().addAll(workData.getDetailsImgItems());
-        detailImgTable.setOnMouseClicked((EventHandler<Event>) event -> {
+        trendLoadData(detailImgTable, WorkCache.getWorkData().getDetailsImgItems());
+    }
+
+    private static void trendLoadData(TableView<PictureModel> tableView, List<PictureModel> pictureModels) {
+        tableView.getItems().setAll(Collections.emptyList());
+        tableView.getItems().addAll(pictureModels);
+        tableView.setOnMouseClicked((EventHandler<Event>) event -> {
             String name = event.getEventType().getName();
             if (name.equals("MOUSE_CLICKED")) {
-                PictureModel selectedItem = detailImgTable.getSelectionModel().getSelectedItem();
+                PictureModel selectedItem = tableView.getSelectionModel().getSelectedItem();
+                if (selectedItem == null) return;
                 MakeConfig.previewImg.setImage(new Image(cn.hutool.core.io.FileUtil.getInputStream(new File(selectedItem.getPath()))));
             }
         });
+
     }
-
-
 }

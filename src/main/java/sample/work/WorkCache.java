@@ -33,4 +33,11 @@ public class WorkCache {
         return workData;
     }
 
+    public static Map<String, ProductDataInfo> getProductDataInfoMap() {
+        return productDataInfoMap;
+    }
+
+    public static boolean isWord() {
+        return null != workData;
+    }
 }

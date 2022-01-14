@@ -32,6 +32,9 @@ public class FileTableViewInitService {
         fileTableTableView.getItems().setAll(Collections.emptyList());
         List<TableViewUrgeFileTable> fileTables = new ArrayList<>();
         FileUtil.findRootFileImgAll(rootFile, fileTables);
+        if (CollectionUtil.isEmpty(fileTables)) {
+            return;
+        }
         fileTableTableView.getItems().addAll(fileTables);
         fileTableTableView.setOnMouseClicked((EventHandler<Event>) event -> {
             String name = event.getEventType().getName();

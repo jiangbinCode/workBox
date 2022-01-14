@@ -140,6 +140,15 @@ public class ProductDataInfo {
     }
 
 
+    public void opsMorePhoneItems(String phone, Boolean flag) {
+        if (flag) {
+            if (!this.morePhoneItems.contains(phone)) this.morePhoneItems.add(phone);
+        } else {
+            this.morePhoneItems.remove(phone);
+        }
+
+    }
+
     public String getEditPath() {
         return editPath;
     }
