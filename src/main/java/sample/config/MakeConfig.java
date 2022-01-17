@@ -2,6 +2,7 @@ package sample.config;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import sample.model.file_make.PictureModel;
@@ -22,5 +23,12 @@ public class MakeConfig {
     public static TableView<PictureModel> skuImgTable;
     public static TableView<PictureModel> detailImgTable;
     public static Label selectNum;
+    public static TextField masterImgMaxNum;
+    public static TextField skuImgMaxNum;
+    public static TextField detailImgMaxNum;
+    public static TextField fileOutPath;
+    public static TextField productName;
+
+
 
 }

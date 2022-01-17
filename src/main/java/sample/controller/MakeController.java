@@ -3,6 +3,8 @@ package sample.controller;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import javafx.beans.binding.ObjectBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -29,6 +31,7 @@ import sample.model.file_make.TableViewUrgeFileTable;
 import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.service.file_make.FileTableViewInitService;
 import sample.service.file_make.FileTreeViewInitService;
+import sample.util.InputVerify;
 import sample.util.ProgressStage;
 import sample.util.Util;
 import sample.work.WorkCache;
@@ -81,7 +84,18 @@ public class MakeController {
     private TableColumn<PictureModel, String> d_name;
     @FXML
     private TableColumn<PictureModel, Integer> d_num;
-
+    @FXML
+    private TextField masterImgMaxNum;
+    @FXML
+    private TextField skuImgMaxNum;
+    @FXML
+    private TextField fileOutPath;
+    @FXML
+    private TextField seriesName;
+    @FXML
+    private TextField detailImgMaxNum;
+    @FXML
+    private TextField productName;
     @FXML
     private Label selectNum;
 
@@ -92,8 +106,9 @@ public class MakeController {
         File newFolder = file.showDialog(Main.getPrimaryStage());//这个file就是选择的文件夹了
         if (newFolder == null) return;
         filePath.setText(newFolder.getPath());
+        seriesName.setText(newFolder.getName() + "-" + "make");
+        fileOutPath.setText(newFolder.getPath() + File.separator + newFolder.getName() + "-" + "make");
         FileTreeViewInitService.initTree(newFolder, fileTree);
-        bindColumn();
     }
 
     @FXML
@@ -148,6 +163,7 @@ public class MakeController {
         secondWindow.setScene(scene);
         secondWindow.show();
     }
+
 
     private void bindColumn() {
         fileTableTableBindColumn();
@@ -255,6 +271,7 @@ public class MakeController {
 
 
     public void initialize() {
+        eventRegister();
         MakeConfig.fileTableTableView = this.fileTableTableView;
         MakeConfig.fileTree = this.fileTree;
         MakeConfig.previewImg = this.previewImg;
@@ -262,6 +279,20 @@ public class MakeController {
         MakeConfig.skuImgTable = this.skuImgTable;
         MakeConfig.detailImgTable = this.detailImgTable;
         MakeConfig.selectNum = this.selectNum;
+        MakeConfig.masterImgMaxNum = this.masterImgMaxNum;
+        MakeConfig.skuImgMaxNum = this.skuImgMaxNum;
+        MakeConfig.detailImgMaxNum = this.detailImgMaxNum;
+        MakeConfig.fileOutPath = this.fileOutPath;
+        MakeConfig.productName = this.productName;
+    }
+
+    private void eventRegister() {
+        InputVerify.InputVerifyOnlyNum(masterImgMaxNum, skuImgMaxNum, detailImgMaxNum);
+        bindColumn();
+        productName.textProperty().addListener((observable, oldValue, newValue) -> {
+                    WorkCache.getWorkData().setProductName(newValue);
+                }
+        );
 
     }
 

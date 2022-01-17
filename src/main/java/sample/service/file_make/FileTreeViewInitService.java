@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import javafx.concurrent.Task;
 import javafx.scene.control.*;
 import sample.Main;
+import sample.config.MakeConfig;
 import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.util.FileUtil;
 import sample.util.ProgressStage;
@@ -27,9 +28,9 @@ public class FileTreeViewInitService {
     public static void initTree(final File rootFile, TreeView<TreeViewUrgeFileTree> treeView) {
         FileTreeViewInitService.treeView = treeView;
         TreeItem<TreeViewUrgeFileTree> rootThreeItem = new TreeItem(
-                new TreeViewUrgeFileTree(rootFile.getName(), rootFile.getPath(), true));
+                new TreeViewUrgeFileTree(rootFile.getName(), rootFile.getPath(), true, 0));
         rootThreeItem.setExpanded(true);
-        rootThreeItem = FileUtil.listFileDic(rootFile, rootThreeItem);
+        rootThreeItem = FileUtil.listFileDic(rootFile, rootThreeItem, 0);
         treeView.setRoot(rootThreeItem);
         treeView.setCellFactory((TreeView<TreeViewUrgeFileTree> p) ->
                 new TextFieldTreeCellImpl());
@@ -46,14 +47,23 @@ public class FileTreeViewInitService {
             MenuItem loadFiles = new MenuItem("加载所有图片");
             loadFiles.setOnAction(e -> {
                 TreeItem<TreeViewUrgeFileTree> selectItem = treeView.getSelectionModel().getSelectedItem();
+                TreeViewUrgeFileTree itemValue = selectItem.getValue();
                 if (CollectionUtil.isEmpty(selectItem.getChildren())) {
                     Util.msg("信息", "该文件夹下暂无图片信息!");
                 } else {
                     ProgressStage.of(Main.getPrimaryStage(), new FileImgLoad(selectItem), "加载中,请稍后...").show();
                     SelectImgTableInitService.loadData();
+                    MakeConfig.productName.setText(itemValue.getValue());
                 }
             });
-            addMenu.getItems().add(loadFiles);
+            MenuItem isogenyCreate = new MenuItem("同源生成该文件夹下的数据");
+
+            isogenyCreate.setOnAction(e -> {
+                TreeItem<TreeViewUrgeFileTree> selectItem = treeView.getSelectionModel().getSelectedItem();
+
+
+            });
+            addMenu.getItems().addAll(loadFiles, isogenyCreate);
         }
 
         @Override
@@ -65,7 +75,7 @@ public class FileTreeViewInitService {
                 return;
             }
             setText(item.getValue());
-            if (item.getCatalogue()) {
+            if (item.getCatalogue() && item.getHierarchy() == 1) {
                 setContextMenu(addMenu);
             } else {
                 setContextMenu(null);

@@ -2,25 +2,16 @@ package sample.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.sun.deploy.uitoolkit.impl.text.FXAppContext;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.apache.http.HttpEntity;
 import org.json.JSONObject;
-import sample.Main;
 import sample.config.MakeConfig;
 import sample.model.file_make.ProductDataInfo;
 import sample.util.Http;
-import sample.util.ProgressStage;
-import sample.util.Util;
 import sample.work.WorkCache;
 
 import java.util.ArrayList;

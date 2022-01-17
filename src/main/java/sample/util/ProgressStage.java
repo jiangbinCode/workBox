@@ -1,5 +1,6 @@
 package sample.util;
 
+import cn.hutool.core.util.StrUtil;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -22,8 +23,10 @@ import java.util.Objects;
 public class ProgressStage {
     private Stage stage;
     private Task<?> work;
+
     private ProgressStage() {
     }
+
     /**
      * 创建
      *
@@ -38,6 +41,7 @@ public class ProgressStage {
         ps.initUI(parent, ad);
         return ps;
     }
+
     /**
      * 显示
      */
@@ -77,6 +81,9 @@ public class ProgressStage {
         stage.setX(x);
         stage.setY(y);
         // close if work finish
-        work.setOnSucceeded(e -> stage.close());
+        work.setOnSucceeded(e -> {
+            stage.close();
+            Util.msg("信息", "操作完毕");
+        });
     }
 }

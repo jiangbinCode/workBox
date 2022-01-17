@@ -3,9 +3,11 @@ package sample.work;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
 import javafx.concurrent.Task;
+import sample.config.MakeConfig;
 import sample.enums.PictureType;
 import sample.model.file_make.PictureModel;
 import sample.model.file_make.ProductDataInfo;
+import sample.util.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,14 +31,14 @@ public class WorkTask extends Task<String> {
     @Override
     protected String call() throws Exception {
         Map<String, ProductDataInfo> productDataInfoMap = WorkCache.getProductDataInfoMap();
-        String outPath = "E:\\outPath\\测试数据包";
+        String outPath = MakeConfig.fileOutPath.getText();
         File rFile = new File(outPath);
         if (!rFile.exists()) rFile.mkdir();
         if (productDataInfoMap.size() <= 0) return null;
         for (Map.Entry<String, ProductDataInfo> entry : productDataInfoMap.entrySet()) {
             cProductFile(rFile, entry.getValue());
         }
-        return null;
+        return outPath;
     }
 
 

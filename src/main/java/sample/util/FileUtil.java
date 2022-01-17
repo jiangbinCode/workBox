@@ -28,15 +28,16 @@ public class FileUtil {
         IMG_FORMAT.add("gif ");
     }
 
-    public static TreeItem listFileDic(File file, TreeItem item) {
+    public static TreeItem listFileDic(File file, TreeItem item, Integer hierarchy) {
+        ++hierarchy;
         File[] listFiles = file.listFiles();
         for (File file2 : listFiles) {
             if (file2.isDirectory()) {
                 TreeItem treeItem = listFileDic(file2,
-                        new TreeItem(new TreeViewUrgeFileTree(file2.getName(), file2.getPath(), true)));
+                        new TreeItem(new TreeViewUrgeFileTree(file2.getName(), file2.getPath(), true, hierarchy)), hierarchy);
                 item.getChildren().add(treeItem);
             } else {
-                item.getChildren().add(new TreeItem(new TreeViewUrgeFileTree(file2.getName(), file2.getPath(), false)));
+                item.getChildren().add(new TreeItem(new TreeViewUrgeFileTree(file2.getName(), file2.getPath(), false, hierarchy)));
             }
         }
         return item;

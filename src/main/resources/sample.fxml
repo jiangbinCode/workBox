@@ -11,18 +11,33 @@
    <children>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0">
          <top>
-            <HBox prefHeight="66.0" prefWidth="1480.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="60.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets />
                </BorderPane.margin>
                <children>
-                  <TextField fx:id="filePath" />
-                  <Button mnemonicParsing="false" onAction="#selectFile" text="选择文件夹">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="makeTaskBnt" mnemonicParsing="false" onAction="#makeTaskStart" text="生成" />
+                  <Pane prefHeight="66.0" prefWidth="1485.0">
+                     <children>
+                        <TextField fx:id="filePath" layoutX="14.0" layoutY="30.0" promptText="请选择一个文件夹" />
+                        <Button layoutX="169.0" layoutY="30.0" mnemonicParsing="false" onAction="#selectFile" text="选择文件夹" />
+                        <Button fx:id="makeTaskBnt" layoutX="819.0" layoutY="9.0" mnemonicParsing="false" onAction="#makeTaskStart" prefHeight="35.0" prefWidth="144.0" text="仅生成已操作的数据" />
+                        <TextField layoutX="14.0" layoutY="3.0" promptText="请输入操作码" />
+                        <Button layoutX="175.0" layoutY="3.0" mnemonicParsing="false" text="激活使用" />
+                        <Separator layoutX="258.0" layoutY="1.0" orientation="VERTICAL" prefHeight="61.0" prefWidth="0.0" />
+                        <TextField fx:id="masterImgMaxNum" layoutX="361.0" layoutY="3.0" prefHeight="23.0" prefWidth="43.0" text="5" />
+                        <Label layoutX="283.0" layoutY="7.0" text="主图数量限制" />
+                        <Label layoutX="283.0" layoutY="34.0" text="选项图数量限制" />
+                        <TextField fx:id="skuImgMaxNum" layoutX="375.0" layoutY="30.0" prefHeight="23.0" prefWidth="44.0" text="24" />
+                        <Label layoutX="436.0" layoutY="7.0" text="详情图数量限制" />
+                        <TextField fx:id="detailImgMaxNum" layoutX="529.0" layoutY="3.0" prefHeight="23.0" prefWidth="47.0" text="99" />
+                        <Separator layoutX="596.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="8.0" />
+                        <Label layoutX="612.0" layoutY="7.0" text="系列名称" />
+                        <TextField fx:id="seriesName" layoutX="666.0" layoutY="3.0" />
+                        <Label layoutX="612.0" layoutY="34.0" text="输出路径" />
+                        <TextField fx:id="fileOutPath" layoutX="666.0" layoutY="30.0" />
+                        <Button fx:id="makeTaskBnt1" disable="true" layoutX="978.0" layoutY="9.0" mnemonicParsing="false" onAction="#makeTaskStart" prefHeight="35.0" prefWidth="144.0" text="同源生成所有文件数据" />
+                     </children>
+                  </Pane>
                </children>
             </HBox>
          </top>
@@ -116,34 +131,20 @@
                   <Separator prefWidth="200.0" />
                   <HBox prefHeight="33.0" prefWidth="1050.0">
                      <children>
-                        <CheckBox fx:id="fileCheckAll" mnemonicParsing="false" onAction="#fileCheckAll" prefHeight="30.0" prefWidth="53.0" text="全选">
-                           <HBox.margin>
-                              <Insets left="3.0" />
-                           </HBox.margin>
-                        </CheckBox>
-                        <Button fx:id="tagMasterImg" mnemonicParsing="false" onAction="#tagMasterImg" prefHeight="23.0" prefWidth="95.0" text="标识为主图">
-                           <HBox.margin>
-                              <Insets bottom="2.0" left="5.0" top="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="tagSkuImg" mnemonicParsing="false" onAction="#tagSkuImg" text="标识为选项图">
-                           <HBox.margin>
-                              <Insets bottom="2.0" left="5.0" top="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="tagDetailsImg" mnemonicParsing="false" onAction="#tagDetailsImg" text="标识为详情图">
-                           <HBox.margin>
-                              <Insets bottom="2.0" left="5.0" top="2.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="tagWhiteImg" mnemonicParsing="false" onAction="#tagWhiteImg" text="标识为透明图">
-                           <HBox.margin>
-                              <Insets bottom="2.0" left="5.0" top="2.0" />
-                           </HBox.margin>
-                        </Button>
+                        <Pane prefHeight="28.0" prefWidth="1040.0">
+                           <children>
+                              <CheckBox fx:id="fileCheckAll" layoutX="6.0" layoutY="-3.0" mnemonicParsing="false" onAction="#fileCheckAll" prefHeight="30.0" prefWidth="53.0" text="全选" />
+                              <Button fx:id="tagMasterImg" layoutX="59.0" mnemonicParsing="false" onAction="#tagMasterImg" prefHeight="23.0" prefWidth="95.0" text="标识为主图" />
+                              <Button fx:id="tagSkuImg" layoutX="161.0" mnemonicParsing="false" onAction="#tagSkuImg" text="标识为选项图" />
+                              <Button fx:id="tagDetailsImg" layoutX="261.0" mnemonicParsing="false" onAction="#tagDetailsImg" text="标识为详情图" />
+                              <Button fx:id="tagWhiteImg" layoutX="357.0" mnemonicParsing="false" onAction="#tagWhiteImg" text="标识为透明图" />
+                              <Label layoutX="771.0" layoutY="4.0" text="产品名字" />
+                              <TextField fx:id="productName" layoutX="825.0" />
+                           </children>
+                        </Pane>
                      </children>
                   </HBox>
-                  <TableView fx:id="fileTableTableView" prefHeight="814.0" prefWidth="990.0">
+                  <TableView fx:id="fileTableTableView" prefHeight="819.0" prefWidth="990.0">
                     <columns>
                         <TableColumn fx:id="fCheckBox" prefWidth="75.0" text="选择" />
                       <TableColumn fx:id="path" minWidth="100.0" prefWidth="215.0" text="文件路径" />
