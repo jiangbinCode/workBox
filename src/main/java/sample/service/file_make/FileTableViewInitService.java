@@ -29,23 +29,33 @@ public class FileTableViewInitService {
     private static final TableView<TableViewUrgeFileTable> fileTableTableView = MakeConfig.fileTableTableView;
 
     public static void loadData(File rootFile) {
+        //加载前先清空已有的数据信息
         fileTableTableView.getItems().setAll(Collections.emptyList());
         List<TableViewUrgeFileTable> fileTables = new ArrayList<>();
+        //查找这个需要加载的文件夹里面所有的图片信息
         FileUtil.findRootFileImgAll(rootFile, fileTables);
         if (CollectionUtil.isEmpty(fileTables)) {
             return;
         }
+        //装载至表格中
         fileTableTableView.getItems().addAll(fileTables);
         fileTableTableView.setOnMouseClicked((EventHandler<Event>) event -> {
             String name = event.getEventType().getName();
+            //图片预览
             if (name.equals("MOUSE_CLICKED")) {
                 TableViewUrgeFileTable selectedItem = fileTableTableView.getSelectionModel().getSelectedItem();
                 MakeConfig.previewImg.setImage(new Image(cn.hutool.core.io.FileUtil.getInputStream(new File(selectedItem.getPath()))));
             }
         });
+        //绑定表格每列右击的菜单栏
         menuBind();
     }
 
+    /**
+     * 获取表格中被勾选的数据
+     *
+     * @return
+     */
     public static List<TableViewUrgeFileTable> getSelectData() {
         ObservableList<TableViewUrgeFileTable> items = fileTableTableView.getItems();
         List<TableViewUrgeFileTable> selectData = new ArrayList<>();
@@ -55,6 +65,7 @@ public class FileTableViewInitService {
         return selectData;
     }
 
+    //清除表格中已被选择的数据
     public static void clearSelectData() {
         List<TableViewUrgeFileTable> selectData = getSelectData();
         for (TableViewUrgeFileTable item : selectData) {
@@ -62,6 +73,7 @@ public class FileTableViewInitService {
         }
     }
 
+    //全选表格中里面的数据或者全不选
     public static void checkAll(Boolean check) {
         fileTableTableView.getItems().forEach(item -> {
             item.getCheckBox().change(check);
@@ -115,6 +127,13 @@ public class FileTableViewInitService {
         fileTableTableView.setContextMenu(addMenu);
     }
 
+
+    /**
+     * 将表格中的一列标识为对应类型的图片数据
+     *
+     * @param selectedItem
+     * @param pictureType
+     */
     public static void imgJoinWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
         selectedItem.addPicType(pictureType);
         WorkCache.getWorkData().addImg(selectedItem, pictureType);
@@ -122,6 +141,13 @@ public class FileTableViewInitService {
         SelectImgTableInitService.loadData();
     }
 
+
+    /**
+     * 将表格中的一列移除已经被标识图片类型
+     *
+     * @param selectedItem
+     * @param pictureType
+     */
     public static void imgRemoveWorkCache(TableViewUrgeFileTable selectedItem, PictureType pictureType) {
         selectedItem.removePicType(pictureType);
         WorkCache.getWorkData().removeImg(selectedItem, pictureType);

@@ -83,7 +83,6 @@ public class ProgressStage {
         // close if work finish
         work.setOnSucceeded(e -> {
             stage.close();
-            Util.msg("信息", "操作完毕");
         });
     }
 }

@@ -34,6 +34,7 @@ import sample.service.file_make.FileTreeViewInitService;
 import sample.util.InputVerify;
 import sample.util.ProgressStage;
 import sample.util.Util;
+import sample.work.IsogenyCreateTask;
 import sample.work.WorkCache;
 import sample.work.WorkTask;
 
@@ -48,8 +49,7 @@ public class MakeController {
     private TreeView<TreeViewUrgeFileTree> fileTree;
     @FXML
     private TableView<TableViewUrgeFileTable> fileTableTableView;
-    @FXML
-    private TableColumn<TableViewUrgeFileTable, String> path;
+
     @FXML
     private TableColumn<TableViewUrgeFileTable, String> name;
     @FXML
@@ -84,22 +84,30 @@ public class MakeController {
     private TableColumn<PictureModel, String> d_name;
     @FXML
     private TableColumn<PictureModel, Integer> d_num;
-    @FXML
-    private TextField masterImgMaxNum;
-    @FXML
-    private TextField skuImgMaxNum;
+    //    @FXML
+//    private TextField masterImgMaxNum;
+//    @FXML
+//    private TextField skuImgMaxNum;
+//    @FXML
+//    private TextField detailImgMaxNum;
     @FXML
     private TextField fileOutPath;
     @FXML
     private TextField seriesName;
-    @FXML
-    private TextField detailImgMaxNum;
+
     @FXML
     private TextField productName;
     @FXML
     private Label selectNum;
+    @FXML
+    private ProgressBar makeProgressBar;
 
 
+    /**
+     * 选择一个文件夹 也是数据包制作的开始
+     *
+     * @param event
+     */
     @FXML
     void selectFile(ActionEvent event) {
         DirectoryChooser file = new DirectoryChooser();
@@ -107,8 +115,10 @@ public class MakeController {
         if (newFolder == null) return;
         filePath.setText(newFolder.getPath());
         seriesName.setText(newFolder.getName() + "-" + "make");
-        fileOutPath.setText(newFolder.getPath() + File.separator + newFolder.getName() + "-" + "make");
-        FileTreeViewInitService.initTree(newFolder, fileTree);
+        fileOutPath.setText(newFolder.getParentFile().getPath() + File.separator + newFolder.getName() + "-" + "make");
+//        fileOutPath.setDisable(true);
+        FileTreeViewInitService.initTree(newFolder, fileTree); //初始化页面左侧的树形数据结构
+        WorkCache.getProductDataInfoMap().clear();
     }
 
     @FXML
@@ -144,16 +154,30 @@ public class MakeController {
 
     @FXML
     void makeTaskStart(ActionEvent event) {
+        if (!WorkCache.isWord()) {
+            Util.msg("提示", "请先初始化数据!");
+            return;
+        }
         ProgressStage.of(Main.getPrimaryStage(), new WorkTask(), "请稍后...").show();
+    }
+
+    @FXML
+    void reprintBuild(ActionEvent event) {
+        if (!WorkCache.isWord()) {
+            Util.msg("提示", "请先初始化数据!");
+            return;
+        }
+        if (!WorkCache.getWorkData().isUsable()) {
+            Util.msg("提示", "请先编辑完数据后在进行该操作!");
+            return;
+        }
+        ProgressStage.of(Main.getPrimaryStage(), new IsogenyCreateTask(), "请稍后...").show();
     }
 
 
     @FXML
     void morePhoneMake(ActionEvent e) throws IOException {
-        if (!WorkCache.isWord()) {
-            Util.msg("提示", "请先初始化数据!");
-            return;
-        }
+
         Stage secondWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/morePhoneSelect.fxml"));
         Scene scene = new Scene(root, 600, 400);
@@ -255,7 +279,6 @@ public class MakeController {
 
 
     private void fileTableTableBindColumn() {
-        path.setCellValueFactory(new PropertyValueFactory(path.getId()));
         name.setCellValueFactory(new PropertyValueFactory(name.getId()));
         fileSize.setCellValueFactory(new PropertyValueFactory(fileSize.getId()));
         fileType.setCellValueFactory(new PropertyValueFactory(fileType.getId()));
@@ -279,15 +302,15 @@ public class MakeController {
         MakeConfig.skuImgTable = this.skuImgTable;
         MakeConfig.detailImgTable = this.detailImgTable;
         MakeConfig.selectNum = this.selectNum;
-        MakeConfig.masterImgMaxNum = this.masterImgMaxNum;
-        MakeConfig.skuImgMaxNum = this.skuImgMaxNum;
-        MakeConfig.detailImgMaxNum = this.detailImgMaxNum;
+//        MakeConfig.masterImgMaxNum = this.masterImgMaxNum;
+//        MakeConfig.skuImgMaxNum = this.skuImgMaxNum;
+//        MakeConfig.detailImgMaxNum = this.detailImgMaxNum;
         MakeConfig.fileOutPath = this.fileOutPath;
         MakeConfig.productName = this.productName;
+        MakeConfig.makeProgressBar = this.makeProgressBar;
     }
 
     private void eventRegister() {
-        InputVerify.InputVerifyOnlyNum(masterImgMaxNum, skuImgMaxNum, detailImgMaxNum);
         bindColumn();
         productName.textProperty().addListener((observable, oldValue, newValue) -> {
                     WorkCache.getWorkData().setProductName(newValue);

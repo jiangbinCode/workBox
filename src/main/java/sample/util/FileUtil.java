@@ -59,4 +59,20 @@ public class FileUtil {
 
     }
 
+
+    public static void getRootFileSonAll(File rootFile, List<File> sonAll) {
+        File[] listFiles = rootFile.listFiles();
+        for (File file2 : listFiles) {
+            if (file2.isDirectory()) {
+                getRootFileSonAll(file2, sonAll);
+            } else {
+                String extName = cn.hutool.core.io.FileUtil.extName(file2);
+                if (IMG_FORMAT.contains(extName.toLowerCase())) {
+                    sonAll.add(file2);
+                }
+            }
+        }
+
+    }
+
 }

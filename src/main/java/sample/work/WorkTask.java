@@ -3,6 +3,7 @@ package sample.work;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
 import javafx.concurrent.Task;
+import javafx.scene.control.ProgressBar;
 import sample.config.MakeConfig;
 import sample.enums.PictureType;
 import sample.model.file_make.PictureModel;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * @program: workBox
- * @description:
+ * @description: 生成文件的类
  * @author: bin
  * @create: 2022-01-14 09:57
  **/
@@ -30,18 +31,28 @@ public class WorkTask extends Task<String> {
 
     @Override
     protected String call() throws Exception {
+        ProgressBar makeProgressBar = MakeConfig.makeProgressBar;
+        makeProgressBar.setProgress(0);
+        //获取工作缓存已经被编辑的所有数据
         Map<String, ProductDataInfo> productDataInfoMap = WorkCache.getProductDataInfoMap();
+        //输出路径
         String outPath = MakeConfig.fileOutPath.getText();
         File rFile = new File(outPath);
         if (!rFile.exists()) rFile.mkdir();
+        else FileUtil.clean(rFile);
         if (productDataInfoMap.size() <= 0) return null;
+        double count = 0;
+        //遍历创建对应的数据文件
         for (Map.Entry<String, ProductDataInfo> entry : productDataInfoMap.entrySet()) {
             cProductFile(rFile, entry.getValue());
+            double i = ++count / productDataInfoMap.size();
+            makeProgressBar.setProgress(i);
         }
         return outPath;
     }
 
 
+    // 创建对应的图片类型文件
     private void cProductFile(File rely, ProductDataInfo dataInfo) {
         File pFolder = new File(rely, dataInfo.getProductName());
         if (!pFolder.exists()) pFolder.mkdir();

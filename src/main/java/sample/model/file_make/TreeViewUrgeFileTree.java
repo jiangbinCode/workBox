@@ -16,12 +16,15 @@ public class TreeViewUrgeFileTree {
 
     private Integer hierarchy;
 
+    private String showVal;
+
 
     public TreeViewUrgeFileTree(String fileName, String path, Boolean isCatalogue, Integer hierarchy) {
         this.value = fileName;
         this.path = path;
         this.isCatalogue = isCatalogue;
         this.hierarchy = hierarchy;
+        this.showVal = fileName;
     }
 
     public String getValue() {
@@ -54,5 +57,13 @@ public class TreeViewUrgeFileTree {
 
     public void setCatalogue(Boolean catalogue) {
         isCatalogue = catalogue;
+    }
+
+    public String getShowVal() {
+        return showVal;
+    }
+
+    public void setShowVal(String showVal) {
+        this.showVal = showVal;
     }
 }

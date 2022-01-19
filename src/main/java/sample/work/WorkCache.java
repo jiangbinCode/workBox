@@ -11,10 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @SuppressWarnings("all")
 public class WorkCache {
+
+    /**
+     * 存放已经被编辑过的路径数据
+     * key 目录路径
+     * val 产品编辑的数据
+     */
     private static final Map<String, ProductDataInfo> productDataInfoMap = new HashMap<>();
 
+    /**
+     * 当前正在编辑的路径文件数据
+     */
     private static ProductDataInfo workData;
 
 
@@ -39,5 +49,9 @@ public class WorkCache {
 
     public static boolean isWord() {
         return null != workData;
+    }
+
+    public static void addMap(String key, ProductDataInfo data) {
+        productDataInfoMap.put(key, data);
     }
 }

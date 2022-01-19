@@ -1,9 +1,6 @@
 package sample.config;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import sample.model.file_make.PictureModel;
 import sample.model.file_make.TableViewUrgeFileTable;
@@ -28,7 +25,7 @@ public class MakeConfig {
     public static TextField detailImgMaxNum;
     public static TextField fileOutPath;
     public static TextField productName;
-
+    public static ProgressBar makeProgressBar;
 
 
 }

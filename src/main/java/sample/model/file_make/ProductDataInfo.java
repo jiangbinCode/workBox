@@ -149,6 +149,13 @@ public class ProductDataInfo {
 
     }
 
+    public boolean isUsable() {
+        if (CollectionUtil.isEmpty(this.masterImgItems)) return false;
+        if (CollectionUtil.isEmpty(this.detailsImgItems)) return false;
+        if (CollectionUtil.isEmpty(this.skuImgItems)) return false;
+        return true;
+    }
+
     public String getEditPath() {
         return editPath;
     }
