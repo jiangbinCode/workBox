@@ -1,18 +1,12 @@
 package sample.service.file_make;
 
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import sample.config.MakeConfig;
 import sample.model.file_make.PictureModel;
-import sample.model.file_make.ProductDataInfo;
-import sample.model.file_make.TableViewUrgeFileTable;
-import sample.work.WorkCache;
+import sample.work.file_make.WorkCache;
 
 import java.io.File;
 import java.util.Collections;

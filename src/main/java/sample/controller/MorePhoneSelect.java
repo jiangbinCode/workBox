@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import sample.config.MakeConfig;
 import sample.model.file_make.ProductDataInfo;
 import sample.util.Http;
-import sample.work.WorkCache;
+import sample.work.file_make.WorkCache;
 
 import java.util.ArrayList;
 import java.util.Arrays;

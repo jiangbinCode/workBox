@@ -45,9 +45,10 @@ public class ProgressStage {
     /**
      * 显示
      */
-    public void show() {
+    public Stage show() {
         new Thread(work).start();
         stage.show();
+        return stage;
     }
 
     private void initUI(Stage parent, String ad) {

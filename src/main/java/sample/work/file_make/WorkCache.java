@@ -1,4 +1,4 @@
-package sample.work;
+package sample.work.file_make;
 
 import cn.hutool.core.collection.CollectionUtil;
 import sample.enums.PictureType;

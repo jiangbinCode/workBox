@@ -25,7 +25,7 @@ public class FileUtil {
         IMG_FORMAT.add("jpg");
         IMG_FORMAT.add("jepg");
         IMG_FORMAT.add("png");
-        IMG_FORMAT.add("gif ");
+        IMG_FORMAT.add("gif");
     }
 
     public static TreeItem listFileDic(File file, TreeItem item, Integer hierarchy) {
@@ -67,6 +67,7 @@ public class FileUtil {
                 getRootFileSonAll(file2, sonAll);
             } else {
                 String extName = cn.hutool.core.io.FileUtil.extName(file2);
+                if (extName.toLowerCase().equals("ini")) file2.delete();
                 if (IMG_FORMAT.contains(extName.toLowerCase())) {
                     sonAll.add(file2);
                 }

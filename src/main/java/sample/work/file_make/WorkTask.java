@@ -1,4 +1,4 @@
-package sample.work;
+package sample.work.file_make;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
@@ -8,7 +8,6 @@ import sample.config.MakeConfig;
 import sample.enums.PictureType;
 import sample.model.file_make.PictureModel;
 import sample.model.file_make.ProductDataInfo;
-import sample.util.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,11 +80,11 @@ public class WorkTask extends Task<String> {
         Integer num = model.getNum();
         switch (pictureType) {
             case 主图:
-                return num.toString();
+                return "主图_" + num;
             case 选项图:
                 return num + "-" + model.getName();
             case 详情图:
-                return "0" + num;
+                return "详情图_0" + num;
             case 透明图:
                 return "透明图";
             default:

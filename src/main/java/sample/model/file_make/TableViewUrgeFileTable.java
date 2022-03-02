@@ -2,7 +2,7 @@ package sample.model.file_make;
 
 import cn.hutool.core.io.FileUtil;
 import sample.enums.PictureType;
-import sample.work.WorkCache;
+import sample.work.file_make.WorkCache;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

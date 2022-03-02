@@ -3,12 +3,7 @@ package sample.controller;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import javafx.beans.binding.ObjectBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,10 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.converter.IntegerStringConverter;
 import sample.Main;
 import sample.config.MakeConfig;
@@ -31,12 +24,11 @@ import sample.model.file_make.TableViewUrgeFileTable;
 import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.service.file_make.FileTableViewInitService;
 import sample.service.file_make.FileTreeViewInitService;
-import sample.util.InputVerify;
 import sample.util.ProgressStage;
 import sample.util.Util;
-import sample.work.IsogenyCreateTask;
-import sample.work.WorkCache;
-import sample.work.WorkTask;
+import sample.work.file_make.IsogenyCreateTask;
+import sample.work.file_make.WorkCache;
+import sample.work.file_make.WorkTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +41,6 @@ public class MakeController {
     private TreeView<TreeViewUrgeFileTree> fileTree;
     @FXML
     private TableView<TableViewUrgeFileTable> fileTableTableView;
-
     @FXML
     private TableColumn<TableViewUrgeFileTable, String> name;
     @FXML
@@ -114,8 +105,8 @@ public class MakeController {
         File newFolder = file.showDialog(Main.getPrimaryStage());//这个file就是选择的文件夹了
         if (newFolder == null) return;
         filePath.setText(newFolder.getPath());
-        seriesName.setText(newFolder.getName() + "-" + "make");
-        fileOutPath.setText(newFolder.getParentFile().getPath() + File.separator + newFolder.getName() + "-" + "make");
+        seriesName.setText(newFolder.getName() + "make");
+        fileOutPath.setText(newFolder.getParentFile().getPath() + File.separator + newFolder.getName() + "make");
 //        fileOutPath.setDisable(true);
         FileTreeViewInitService.initTree(newFolder, fileTree); //初始化页面左侧的树形数据结构
         WorkCache.getProductDataInfoMap().clear();
@@ -158,7 +149,12 @@ public class MakeController {
             Util.msg("提示", "请先初始化数据!");
             return;
         }
-        ProgressStage.of(Main.getPrimaryStage(), new WorkTask(), "请稍后...").show();
+        WorkTask workTask = new WorkTask();
+        Stage stage = ProgressStage.of(Main.getPrimaryStage(), workTask, "请稍后...").show();
+        workTask.setOnSucceeded((e) -> {
+            stage.close();
+            Util.msg("提示", "生成数据完毕,生成路径为: " + MakeConfig.fileOutPath.getText() + " 本次成功生成的数量为:" + WorkCache.getProductDataInfoMap().size());
+        });
     }
 
     @FXML

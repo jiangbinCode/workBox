@@ -12,7 +12,7 @@ import sample.enums.PictureType;
 import sample.model.file_make.TableViewUrgeFileTable;
 import sample.util.FileUtil;
 import sample.util.Util;
-import sample.work.WorkCache;
+import sample.work.file_make.WorkCache;
 
 import java.io.File;
 import java.util.ArrayList;

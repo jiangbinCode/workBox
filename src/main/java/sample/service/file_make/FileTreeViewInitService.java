@@ -11,7 +11,7 @@ import sample.model.file_make.TreeViewUrgeFileTree;
 import sample.util.FileUtil;
 import sample.util.ProgressStage;
 import sample.util.Util;
-import sample.work.WorkCache;
+import sample.work.file_make.WorkCache;
 
 import java.io.File;
 

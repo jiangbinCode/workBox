@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #fff" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.PicToolController">
+    <children>
+        <Pane layoutX="-2.0" prefHeight="803.0" prefWidth="1100.0">
+            <children>
+                <HBox layoutX="1.0" prefHeight="69.0" prefWidth="1100.0">
+                    <children>
+                        <Pane prefHeight="69.0" prefWidth="1105.0">
+                            <children>
+                                <TextField fx:id="filePath" disable="true" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="156.0" promptText="请选择一个文件夹" />
+                                <Button layoutX="179.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="30.0" prefWidth="78.0" text="选择文件夹" />
+                                <Separator layoutX="326.0" layoutY="-45.0" orientation="VERTICAL" prefHeight="200.0" />
+                                <Button layoutX="347.0" layoutY="9.0" mnemonicParsing="false" onAction="#repair" prefHeight="30.0" prefWidth="212.0" text="修复下方表格存在的问题图片" />
+                                <Label layoutX="583.0" layoutY="9.0" text="1.将不合系统规则的图片类型(gif格式图片等)自动转化为JPG格式" />
+                                <Label layoutX="583.0" layoutY="39.0" prefHeight="15.0" prefWidth="229.0" text="2.超过3MB的图片将自动压缩至3MB以下" />
+                                <ProgressBar layoutX="381.0" layoutY="49.0" prefHeight="18.0" prefWidth="179.0" progress="0.0" />
+                                <Label layoutX="347.0" layoutY="49.0" prefHeight="15.0" prefWidth="34.0" text="进度" />
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+                <VBox layoutY="80.0" prefHeight="722.0" prefWidth="1100.0">
+                    <children>
+                        <TableView fx:id="imgDataTable" prefHeight="805.0" prefWidth="828.0">
+                            <columns>
+                                <TableColumn fx:id="path" prefWidth="353.0" text="文件路径" />
+                                <TableColumn fx:id="name" minWidth="0.0" prefWidth="79.0" text="文件名" />
+                                <TableColumn fx:id="type" prefWidth="90.0" text="作用" />
+                                <TableColumn fx:id="fileType" prefWidth="107.0" text="图片类型" />
+                                <TableColumn fx:id="fileSize" minWidth="0.0" prefWidth="129.0" text="图片大小(KB)" />
+                                <TableColumn fx:id="pixel" maxWidth="247.0" prefWidth="245.0" text="图片尺寸(PX)" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
