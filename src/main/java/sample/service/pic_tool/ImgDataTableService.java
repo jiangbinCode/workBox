@@ -19,6 +19,7 @@ public class ImgDataTableService {
 
 
     public static void initData(List<ImgDataTableModel> models) {
+        imgDataTable.getItems().clear();
         imgDataTable.getItems().addAll(models);
         imgDataTable.refresh();
     }

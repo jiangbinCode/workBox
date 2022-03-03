@@ -22,8 +22,6 @@ import java.util.List;
  **/
 public class ImgDataTableModel {
 
-    private TableCheckBox checkBox = new TableCheckBox();
-
     private String path;
 
     private String name;
@@ -67,15 +65,6 @@ public class ImgDataTableModel {
             return getPicType(file.getParentFile());
         }
     }
-
-    public TableCheckBox getCheckBox() {
-        return checkBox;
-    }
-
-    public void setCheckBox(TableCheckBox checkBox) {
-        this.checkBox = checkBox;
-    }
-
 
     public String getPath() {
         return path;

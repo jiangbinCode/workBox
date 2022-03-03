@@ -1,5 +1,6 @@
 package sample.config;
 
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableView;
 import sample.model.pic_tool.ImgDataTableModel;
 
@@ -11,6 +12,8 @@ import sample.model.pic_tool.ImgDataTableModel;
  **/
 public class PicToolConfig {
     public static TableView<ImgDataTableModel> imgDataTableModelTableView;
+
+    public static ProgressBar repairBar;
 
 
 }

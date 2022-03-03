@@ -20,7 +20,7 @@
                                 <Button layoutX="347.0" layoutY="9.0" mnemonicParsing="false" onAction="#repair" prefHeight="30.0" prefWidth="212.0" text="修复下方表格存在的问题图片" />
                                 <Label layoutX="583.0" layoutY="9.0" text="1.将不合系统规则的图片类型(gif格式图片等)自动转化为JPG格式" />
                                 <Label layoutX="583.0" layoutY="39.0" prefHeight="15.0" prefWidth="229.0" text="2.超过3MB的图片将自动压缩至3MB以下" />
-                                <ProgressBar layoutX="381.0" layoutY="49.0" prefHeight="18.0" prefWidth="179.0" progress="0.0" />
+                                <ProgressBar fx:id="repairBar" layoutX="381.0" layoutY="49.0" prefHeight="18.0" prefWidth="179.0" progress="0.0" />
                                 <Label layoutX="347.0" layoutY="49.0" prefHeight="15.0" prefWidth="34.0" text="进度" />
                             </children>
                         </Pane>

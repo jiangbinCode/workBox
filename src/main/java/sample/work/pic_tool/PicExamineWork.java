@@ -35,9 +35,8 @@ public class PicExamineWork extends Task {
         List<ImgDataTableModel> imgDataTableModels = new ArrayList<>();
         for (File file : childrenFile) imgDataTableModels.add(ImgDataTableModel.instantiation(file));
         if (imgDataTableModels.isEmpty()) return "";
-        imgDataTableModels = imgDataTableModels.stream().filter(x -> {
-            return firstVerify(x);
-        }).collect(Collectors.toList());
+        imgDataTableModels = imgDataTableModels.stream().filter(this::firstVerify).collect(Collectors.toList());
+        PicCache.addImgCacheData(imgDataTableModels);
         ImgDataTableService.initData(imgDataTableModels);
         return null;
     }
@@ -50,6 +49,7 @@ public class PicExamineWork extends Task {
         if (model.getFileSize() > 3072) return true;
         return !"jpg".equalsIgnoreCase(model.getFileType()) && !"png".equalsIgnoreCase(model.getFileType()) && !"jpeg".equalsIgnoreCase(model.getFileType());
     }
+
 
 
 }
