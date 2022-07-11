@@ -43,7 +43,22 @@ public class MainController {
                 Main.class.getResourceAsStream("/icon/zndz.jpg")));
         secondWindow.setScene(scene);
         secondWindow.show();
-        Main.getPrimaryStage().close();
+        Main.getPrimaryStage().hide();
     }
+
+
+    @FXML
+    void morePhoneMake(ActionEvent event) throws IOException {
+        Stage secondWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/morePhoneMake.fxml"));
+        Scene scene = new Scene(root, 1069, 795);
+        secondWindow.setTitle("多型号制作");
+        secondWindow.getIcons().add(new Image(
+                Main.class.getResourceAsStream("/icon/zndz.jpg")));
+        secondWindow.setScene(scene);
+        secondWindow.show();
+        Main.getPrimaryStage().hide();
+    }
+
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="795.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MorePhoneMakeController">
+    <children>
+        <Pane prefHeight="718.0" prefWidth="955.0">
+            <children>
+                <TextField fx:id="filePath" layoutX="28.0" layoutY="23.0" promptText="请选择需要制作的源数据"/>
+                <Button layoutX="199.0" layoutY="23.0" mnemonicParsing="false" onAction="#selectFile" text="请选择文件夹"/>
+                <Separator layoutY="70.0" prefHeight="1.0" prefWidth="955.0"/>
+                <TableView fx:id="morePhoneTable" layoutX="-4.0" layoutY="67.0" prefHeight="653.0" prefWidth="732.0">
+                    <columns>
+                        <TableColumn fx:id="fCheckBox" prefWidth="90.0" text="选择"/>
+                        <TableColumn fx:id="fName" prefWidth="276.0" text="文件名"/>
+                        <TableColumn fx:id="fMsg" prefWidth="274.0" text="信息"/>
+                    </columns>
+                </TableView>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
