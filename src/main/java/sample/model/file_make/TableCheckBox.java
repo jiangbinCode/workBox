@@ -18,7 +18,6 @@ public class TableCheckBox {
         return new ObservableValue<CheckBox>() {
             @Override
             public void addListener(ChangeListener<? super CheckBox> listener) {
-
             }
 
             @Override
@@ -51,4 +50,7 @@ public class TableCheckBox {
         checkbox.setSelected(f);
     }
 
+    public CheckBox getCheckbox() {
+        return checkbox;
+    }
 }

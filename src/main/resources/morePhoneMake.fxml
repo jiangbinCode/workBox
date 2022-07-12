@@ -1,28 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="795.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MorePhoneMakeController">
+<AnchorPane prefHeight="795.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MorePhoneMakeController">
     <children>
-        <Pane prefHeight="718.0" prefWidth="955.0">
+        <Pane prefHeight="795.0" prefWidth="1069.0">
             <children>
-                <TextField fx:id="filePath" layoutX="28.0" layoutY="23.0" promptText="请选择需要制作的源数据"/>
-                <Button layoutX="199.0" layoutY="23.0" mnemonicParsing="false" onAction="#selectFile" text="请选择文件夹"/>
-                <Separator layoutY="70.0" prefHeight="1.0" prefWidth="955.0"/>
-                <TableView fx:id="morePhoneTable" layoutX="-4.0" layoutY="67.0" prefHeight="653.0" prefWidth="732.0">
+                <TextField fx:id="filePath" layoutX="28.0" layoutY="23.0" promptText="请选择需要制作的源数据" />
+                <Button layoutX="199.0" layoutY="23.0" mnemonicParsing="false" onAction="#selectFile" text="请选择文件夹" />
+                <Separator layoutY="73.0" prefHeight="0.0" prefWidth="1069.0" />
+                <TableView fx:id="morePhoneTable" layoutX="26.0" layoutY="101.0" prefHeight="667.0" prefWidth="732.0">
                     <columns>
-                        <TableColumn fx:id="fCheckBox" prefWidth="90.0" text="选择"/>
-                        <TableColumn fx:id="fName" prefWidth="276.0" text="文件名"/>
-                        <TableColumn fx:id="fMsg" prefWidth="274.0" text="信息"/>
+                        <TableColumn fx:id="fCheckBox" prefWidth="90.0" text="选择" />
+                        <TableColumn fx:id="fName" prefWidth="299.0" text="文件名" />
+                        <TableColumn fx:id="fMsg" prefWidth="342.0" text="信息" />
                     </columns>
                 </TableView>
+                <Label layoutX="765.0" layoutY="85.0" text="淘宝/拼多多不区分孔位图多型号制作工作区" />
+                <Separator layoutX="758.0" layoutY="357.0" prefHeight="3.0" prefWidth="309.0" />
+                <Label layoutX="765.0" layoutY="372.0" text="拼多多区分孔位图多型号制作工作区" />
+                <Label layoutX="765.0" layoutY="131.0" text="当前操作的型号:">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="selectPhoneText" layoutX="869.0" layoutY="131.0" text="暂未选择数据" textFill="#0a40bf">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Button layoutX="765.0" layoutY="205.0" mnemonicParsing="false" onAction="#selectPhone" prefHeight="46.0" prefWidth="96.0" text="选择型号" />
+                <Label layoutX="765.0" layoutY="166.0" text="当前选择的型号数量:">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Button layoutX="913.0" layoutY="205.0" mnemonicParsing="false" onAction="#createMorePropTextData" prefHeight="46.0" prefWidth="96.0" text="生成文本数据" />
+                <Label fx:id="selectPhoneNumText" layoutX="901.0" layoutY="166.0" text="0" textFill="#bd0f0b">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="modelTable" layoutX="765.0" layoutY="503.0" prefHeight="200.0" prefWidth="294.0">
+                    <columns>
+                        <TableColumn fx:id="modelFolderName" prefWidth="289.0" text="型号文件夹名" />
+                    </columns>
+                </TableView>
+            <Label layoutX="765.0" layoutY="416.0" text="保留的主型号数据" />
+            <Label layoutX="766.0" layoutY="454.0" text="移动的文件夹" />
+            <ChoiceBox fx:id="masterPhone" layoutX="869.0" layoutY="412.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="moveFolderName" layoutX="843.0" layoutY="451.0" prefWidth="150.0" />
+            <Button layoutX="766.0" layoutY="709.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="294.0" text="确定更改" />
+            <CheckBox fx:id="fileCheckAll" layoutX="32.0" layoutY="77.0" mnemonicParsing="false" onAction="#modelSelectAllOrNotAll" text="全选" />
+            <Label layoutX="93.0" layoutY="78.0" text="选择数量:" />
+            <Label fx:id="selectNum" layoutX="144.0" layoutY="76.0" text="0" textFill="#cc720c">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </children>

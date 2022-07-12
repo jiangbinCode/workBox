@@ -10,9 +10,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.json.JSONObject;
 import sample.config.MakeConfig;
+import sample.config.MorePhoneMakeConfig;
 import sample.model.file_make.ProductDataInfo;
+import sample.model.m_p_make.MorePhoneMakeTableModel;
 import sample.util.Http;
 import sample.work.file_make.WorkCache;
+import sample.work.m_p_make.M_P_MakeCache;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,18 +39,16 @@ public class MorePhoneSelect {
     @FXML
     private CheckBox onlySelect;
 
-
     private static List<String> phone = new ArrayList<>();
-
 
     @FXML
     void searchPhone(ActionEvent event) {
         String text = fInput.getText();
         if (onlySelect.isSelected()) {
             if (StrUtil.isBlank(text)) {
-                loadPhoneModel(WorkCache.getWorkData().getMorePhoneItems());
+                loadPhoneModel(M_P_MakeCache.workData.getSelectPhone());
             } else {
-                List<String> collect = WorkCache.getWorkData().getMorePhoneItems().stream().filter(x -> StrUtil.containsIgnoreCase(x, text)).collect(Collectors.toList());
+                List<String> collect = M_P_MakeCache.workData.getSelectPhone().stream().filter(x -> StrUtil.containsIgnoreCase(x, text)).collect(Collectors.toList());
                 loadPhoneModel(collect);
             }
         } else {
@@ -65,7 +66,7 @@ public class MorePhoneSelect {
     @FXML
     void onlySelect(ActionEvent event) {
         if (onlySelect.isSelected()) {
-            loadPhoneModel(WorkCache.getWorkData().getMorePhoneItems());
+            loadPhoneModel(M_P_MakeCache.workData.getSelectPhone());
         } else {
             loadPhoneModel(phone);
         }
@@ -96,8 +97,8 @@ public class MorePhoneSelect {
     public void loadPhoneModel(List<String> phones) {
         phonePlace.setContent(null);
         VBox vBox = new VBox();
-        ProductDataInfo workData = WorkCache.getWorkData();
-        List<String> morePhoneItems = workData.getMorePhoneItems();
+        MorePhoneMakeTableModel workData = M_P_MakeCache.workData;
+        List<String> morePhoneItems = workData.getSelectPhone();
         for (String p : phones) {
             CheckBox cb = new CheckBox();
             if (morePhoneItems.contains(p)) cb.setSelected(true);
@@ -105,7 +106,7 @@ public class MorePhoneSelect {
             cb.setOnMouseClicked(event -> {
                 CheckBox tag = (CheckBox) event.getSource();
                 workData.opsMorePhoneItems(tag.getText(), tag.isSelected());
-                MakeConfig.selectNum.setText(workData.getMorePhoneItems().size() + "");
+                MorePhoneMakeConfig.selectPhoneNumText.setText(workData.getSelectPhone().size() + "");
             });
             vBox.getChildren().add(cb);
         }

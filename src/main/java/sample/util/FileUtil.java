@@ -7,6 +7,7 @@ import sample.model.file_make.TreeViewUrgeFileTree;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class FileUtil {
 
     static {
         IMG_FORMAT.add("jpg");
-        IMG_FORMAT.add("jepg");
+        IMG_FORMAT.add("jpeg");
         IMG_FORMAT.add("png");
         IMG_FORMAT.add("gif");
     }
@@ -74,6 +75,30 @@ public class FileUtil {
             }
         }
 
+    }
+
+
+    public static String getFolderName(File file) {
+        if (file == null) return null;
+        if (!file.isDirectory()) return file.getName();
+        String path = file.getPath();
+        String[] split = path.split("\\\\");
+        return split[split.length - 1];
+
+    }
+
+
+    public static int getRootFileSonFolderNum(File rootF) {
+        if (rootF == null) return 0;
+        if (!rootF.isDirectory()) return 0;
+        File[] files = rootF.listFiles();
+        if (files == null || files.length <= 0) return 0;
+        long count = Arrays.stream(files).filter(File::isDirectory).count();
+        return (int) count;
+    }
+
+    public static int getRootFileSonFolderNum(String path) {
+        return getRootFileSonFolderNum(new File(path));
     }
 
 }

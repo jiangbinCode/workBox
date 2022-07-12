@@ -1,8 +1,13 @@
 package sample.model.m_p_make;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.FileUtil;
 import sample.model.file_make.TableCheckBox;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MorePhoneMakeTableModel {
 
@@ -10,17 +15,35 @@ public class MorePhoneMakeTableModel {
 
     private String path;
 
-    private String fName;
+    private String name;
 
-    private String fMsg;
+    private String msg;
+
+    private String fileName;
+
+    private List<String> selectPhone = new ArrayList<>();
+
 
     public MorePhoneMakeTableModel(File file) {
-        this.path = file.getPath();
-        this.fName = file.getName();
-        this.fName = "";
+        String path = file.getPath();
+        String[] split = path.split("\\\\");
+        String fN = split[split.length - 1];
+        this.path = path;
+        this.name = fN;
+        this.msg = "";
+        this.fileName = fN;
     }
 
     public MorePhoneMakeTableModel() {
+    }
+
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public TableCheckBox getCheckBox() {
@@ -39,19 +62,37 @@ public class MorePhoneMakeTableModel {
         this.path = path;
     }
 
-    public String getfName() {
-        return fName;
+    public String getName() {
+        return name;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getfMsg() {
-        return fMsg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setfMsg(String fMsg) {
-        this.fMsg = fMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public List<String> getSelectPhone() {
+        if (CollectionUtil.isEmpty(this.selectPhone)) return Collections.emptyList();
+        return selectPhone;
+    }
+
+    public void setSelectPhone(List<String> selectPhone) {
+        this.selectPhone = selectPhone;
+    }
+
+    public void opsMorePhoneItems(String phone, Boolean isSelect) {
+        if (isSelect) {
+            if (!this.selectPhone.contains(phone)) this.selectPhone.add(phone);
+        } else {
+            this.selectPhone.remove(phone);
+        }
+
     }
 }
